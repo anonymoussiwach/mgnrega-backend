@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Allow frontend (Vercel) to connect
+# Allow all origins for testing (you can restrict later)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # later you can restrict to your frontend domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -18,7 +18,6 @@ def read_root():
 
 @app.get("/districts")
 def get_districts():
-    # dummy example endpoint — replace later with your real logic
     data = [
         {"district": "Ahmedabad", "performance": 85},
         {"district": "Surat", "performance": 90},
