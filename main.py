@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Allow all origins for testing (you can restrict later)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
