@@ -1,12 +1,27 @@
 from fastapi import FastAPI
-import psycopg2, os, json
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-@app.get("/district/{district}")
-def get_district(district: str):
-    # In real version, query Postgres; for demo, return static data
-    data = {"district": district, "month": "2025-09",
-            "jobs_provided": 1234, "wages_paid": 9876543,
-            "pending_payments": 12}
-    return data
+# Allow frontend (Vercel) to connect
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # later you can restrict to your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def read_root():
+    return {"message": "Backend is live!", "status": "OK"}
+
+@app.get("/districts")
+def get_districts():
+    # dummy example endpoint — replace later with your real logic
+    data = [
+        {"district": "Ahmedabad", "performance": 85},
+        {"district": "Surat", "performance": 90},
+        {"district": "Rajkot", "performance": 75}
+    ]
+    return {"data": data}
